@@ -23,13 +23,20 @@ class WorkCSV:
 
     @staticmethod
     def remove_note(path_csv, remove_name):
-        with open('test.csv', 'r') as f, open('test2.csv', 'w') as ff:
+        with open('test.csv', 'r', newline='') as f, open('test2.csv', 'w', newline='') as ff:
             reader = csv.reader(f)
-            writer = csv.writer(ff, quoting=csv.QUOTE_NONNUMERIC)
+            writer = csv.writer(ff)
             for row in reader:
                 if row[0] != remove_name:
                     print(row[0])
                     writer.writerow(row)
+            f.close()
+            ff.close()
+        with open('test.csv', 'w', newline='') as f, open('test2.csv', 'r', newline='') as ff:
+            reader = csv.reader(ff)
+            for i in reader:
+                writer = csv.writer(f)
+                writer.writerow(i)
 
     @staticmethod
     def print_to_console(path_csv):
